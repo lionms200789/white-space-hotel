@@ -1,0 +1,93 @@
+// custom flex utilities
+
+//row, center, cneter
+.flex-rcc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+//row, left, center
+.flex-rlc {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+//row, between, center
+.flex-rsbc {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-rsbs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+
+.flex-rrs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+//row, between, center
+.flex-rsac {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+//column, center, left
+.flex-ccl {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.flex-csbl {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+//column, center, right
+.flex-ccr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+//column, center, center
+.flex-ccc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+// text utilities
+.txt-l {
+  text-align: left;
+}
+.txt-c {
+  text-align: center;
+}
+.txt-r {
+  text-align: right;
+}
+.txt-j {
+  text-align: justify;
+}
