@@ -209,6 +209,7 @@ export default {
       #name,
       #tel,
       #date {
+        -webkit-appearance: none;
         flex: 1 0 auto;
         border: 1px solid #cbd5e0;
         border-radius: 4px;
