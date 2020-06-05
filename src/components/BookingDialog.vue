@@ -60,8 +60,8 @@
           class="total"
         >NT. {{ (detail.normalDayPrice * countWeekdays.length) + (detail.holidayPrice * countHolidays.length) }}</p>
         <div class="booking-confirm flex-rsbc">
-          <button class="cancel" @click="closePopUp()">取消</button>
-          <input type="submit" class="confirm" value="確認預約" @click="booking" />
+          <input type="button" class="cancel" value="取消" @click="closePopUp">
+          <input type="submit" class="confirm" value="確認預約"  @click="booking">
         </div>
       </form>
       <BookingResult :status="status" />
@@ -250,8 +250,9 @@ export default {
     .confirm {
       padding: 10px 15px;
       border: none;
+      border-radius:0;
+      cursor:pointer;
       outline: 0;
-      cursor: pointer;
     }
     .cancel {
       background-color: #d8d8d8;
@@ -259,7 +260,7 @@ export default {
     }
     .confirm {
       background-color: #484848;
-      color: #d8d8d8;
+      color: #fff;
     }
   }
 }
