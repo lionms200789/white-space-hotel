@@ -3,7 +3,6 @@
     <LightBox
       :rooms-img="roomDetail.imageUrl"
       :control="switchLightBox"
-      :index="index"
       @lightboxControl="lightBoxSwitch"
     />
     <div class="room-gallery" @click="switchLightBox = true">

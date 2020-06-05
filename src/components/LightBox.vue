@@ -8,7 +8,7 @@
           :src="roomsImg[i]"
           :key="i"
           class="lightbox-img"
-          :class="{'active': newIndex === i}"
+          :class="{'active': index === i}"
         />
       </div>
       <i class="fa fa-3x fa-chevron-right arrow" @click="indexControl(+1)"></i>
@@ -21,16 +21,16 @@ export default {
   props: ["roomsImg", "control"],
   data() {
     return {
-      newIndex: 0
+      index: 0
     };
   },
   methods: {
     indexControl(num) {
-      this.newIndex += num;
-      if (this.newIndex > this.roomsImg.length - 1) {
-        this.newIndex = 0;
-      } else if (this.newIndex < 0) {
-        this.newIndex = this.roomsImg.length - 1;
+      this.index += num;
+      if (this.index > this.roomsImg.length - 1) {
+        this.index = 0;
+      } else if (this.index < 0) {
+        this.index = this.roomsImg.length - 1;
       }
     },
     closeLightBox() {
