@@ -1,25 +1,44 @@
 <template>
   <transition name="modal">
     <div class="cover" v-if="popup" @click.self="closePopUp">
-      <div class="booking-dialog" v-if="popup">
+      <form class="booking-dialog" v-if="popup">
         <span class="booking-title">預約時段</span>
         <div class="booking-form">
           <div class="booking-name">
             <label for="name">姓名</label>
-            <input type="text" id="name" v-model="bookinfo.name" />
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="請輸入完整大名"
+              required
+              v-model="bookinfo.name"
+            />
           </div>
           <div class="booking-tel">
             <label for="text">電話</label>
-            <input type="text" id="tel" v-model.number="bookinfo.tel" />
+            <input
+              type="text"
+              name="phone"
+              required
+              id="tel"
+              placeholder="0927001346"
+              v-model.number="bookinfo.tel"
+            />
           </div>
           <div class="booking-date">
-            <label for="date">預約起迄</label>
-            <vc-date-picker mode="range" v-model="range" :min-date="calMinDate" style="width:100%">
+            <label for="date">日期</label>
+            <vc-date-picker
+              mode="range"
+              v-model="range"
+              :min-date="calMinDate"
+              style="flex:1 0 auto"
+            >
               <input
                 type="text"
                 id="date"
-                class="input-picker"
-                style="width:100%"
+                placeholder="選擇您的預約起訖"
+                required
                 slot-scope="{ inputProps, inputEvents }"
                 v-bind="inputProps"
                 v-on="inputEvents"
@@ -42,9 +61,9 @@
         >NT. {{ (detail.normalDayPrice * countWeekdays.length) + (detail.holidayPrice * countHolidays.length) }}</p>
         <div class="booking-confirm flex-rsbc">
           <button class="cancel" @click="closePopUp()">取消</button>
-          <button class="confirm" @click="booking">確認預約</button>
+          <input type="submit" class="confirm" value="確認預約" @click="booking" />
         </div>
-      </div>
+      </form>
       <BookingResult :status="status" />
     </div>
   </transition>
@@ -98,31 +117,34 @@ export default {
       this.$emit("popUpHandler");
     },
     booking() {
-      this.$bus.$emit("popUpResultModal");
-      this.$http
-        .post(
-          `https://challenge.thef2e.com/api/thef2e2019/stage6/room/${this.id}`,
-          this.bookinfo,
-          {
-            headers: {
-              Authorization: process.env.VUE_APP_APITOKEN,
-              accept: "application/json"
+      const form = this.$el.querySelector(".booking-dialog");
+      if (form.checkValidity()) {
+        this.$bus.$emit("popUpResultModal");
+        this.$http
+          .post(
+            `https://challenge.thef2e.com/api/thef2e2019/stage6/room/${this.id}`,
+            this.bookinfo,
+            {
+              headers: {
+                Authorization: process.env.VUE_APP_APITOKEN,
+                accept: "application/json"
+              }
             }
-          }
-        )
-        .then(response => {
-          this.bookinfo = {
-            date: [],
-            name: "",
-            tel: ""
-          };
-          this.status = "預約成功";
-          this.range = {};
-          this.$emit("updateRoom");
-        })
-        .catch(err => {
-          this.status = "預約失敗";
-        });
+          )
+          .then(response => {
+            this.bookinfo = {
+              date: [],
+              name: "",
+              tel: ""
+            };
+            this.status = "預約成功";
+            this.range = {};
+            this.$emit("updateRoom");
+          })
+          .catch(err => {
+            this.status = "預約失敗";
+          });
+      }
     },
     convertMth(num) {
       return num < 10 ? `0${num}` : num;
@@ -180,7 +202,7 @@ export default {
     .booking-name,
     .booking-tel,
     .booking-date {
-      padding-bottom: 1rem;
+      margin-bottom: 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -191,13 +213,15 @@ export default {
         border: 1px solid #cbd5e0;
         border-radius: 4px;
         outline: 0;
-        padding: 2px;
+        padding: 5px;
         font-size: 16px;
+      }
+      #date {
+        width: 100%;
       }
       & > label {
         flex: 1 0 auto;
         padding-right: 5px;
-        font-size: 14px;
       }
     }
   }

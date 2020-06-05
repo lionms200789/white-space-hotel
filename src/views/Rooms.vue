@@ -65,7 +65,9 @@ export default {
   },
   mounted() {
     setInterval(() => {
-      this.loopIndex >= (this.loopRoom.length -1) ? this.loopIndex = 0 : this.loopIndex++;
+      this.loopIndex >= this.loopRoom.length - 1
+        ? (this.loopIndex = 0)
+        : this.loopIndex++;
     }, 3500);
   }
 };
@@ -93,6 +95,7 @@ header {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    font-size: 14px;
     .contactSec {
       padding: 5% 0 10% 0;
       .mediaIcon {

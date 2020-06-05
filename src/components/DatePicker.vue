@@ -5,7 +5,7 @@
         <i class="fa fa-chevron-left"></i>
       </a>
       <h1>{{ calendar.year }} / {{ calendar.month + 1 }}月</h1>
-      <a href="javascript:;" @click.prevent="adjustMonth(1)">
+      <a href="#" @click.prevent="adjustMonth(1)">
         <i class="fa fa-chevron-right"></i>
       </a>
     </div>

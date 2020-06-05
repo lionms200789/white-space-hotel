@@ -1,18 +1,43 @@
 <template>
   <div>
-    <LightBox
-      :rooms-img="roomDetail.imageUrl"
-      :control="switchLightBox"
-      @lightboxControl="lightBoxSwitch"
-    />
-    <div class="room-gallery" @click="switchLightBox = true">
+    <transition name="fade">
+      <div
+        id="lightbox"
+        class="flex-rsac"
+        v-if="lightBoxControl"
+        @click.self="lightBoxControl = !lightBoxControl"
+      >
+        <i class="fa fa-3x fa-chevron-left arrow" @click="indexControl(-1)"></i>
+        <div class="lightbox-view flex-rcc">
+          <img
+            v-for="(url , i) in roomDetail.imageUrl"
+            :src="url"
+            :key="i"
+            class="lightbox-img"
+            :class="{'active': lightBoxIndex === i}"
+          />
+        </div>
+        <i class="fa fa-3x fa-chevron-right arrow" @click="indexControl(+1)"></i>
+      </div>
+    </transition>
+    <div class="room-gallery">
       <router-link :to="'/'">
         <img src="../assets/images/logo_block.svg" class="logo-block" />
       </router-link>
-      <div class="room-left" :style="{ 'background-image' : `url(${roomDetail.imageUrl[0]})` }"></div>
+      <div
+        class="room-left"
+        :style="{ 'background-image' : `url(${roomDetail.imageUrl[0]})`}"
+        @click="showLightBox(0)"
+      ></div>
       <div class="room-right">
-        <div :style="{'background-image' : `url(${roomDetail.imageUrl[1]})` }"></div>
-        <div :style="{'background-image' : `url(${roomDetail.imageUrl[2]})` }"></div>
+        <div
+          :style="{'background-image' : `url(${roomDetail.imageUrl[1]})` }"
+          @click="showLightBox(1)"
+        ></div>
+        <div
+          :style="{'background-image' : `url(${roomDetail.imageUrl[2]})` }"
+          @click="showLightBox(2)"
+        ></div>
       </div>
     </div>
 
@@ -118,13 +143,11 @@
 <script>
 import BookingDialog from "../components/BookingDialog";
 import DatePicker from "../components/DatePicker";
-import LightBox from "../components/LightBox";
 
 export default {
   components: {
     BookingDialog,
-    DatePicker,
-    LightBox
+    DatePicker
   },
   data() {
     return {
@@ -135,8 +158,8 @@ export default {
       },
       booking: [],
       popup: false,
-      index:0,
-      switchLightBox: false
+      lightBoxIndex: 0,
+      lightBoxControl: false
     };
   },
   methods: {
@@ -170,8 +193,18 @@ export default {
           this.booking = response.data.booking;
         });
     },
-    lightBoxSwitch() {
-      this.switchLightBox = false;
+    showLightBox(num) {
+      this.lightBoxControl = true;
+      this.lightBoxIndex = num;
+    },
+    indexControl(num) {
+      this.lightBoxIndex += num;
+      let len = this.roomDetail.imageUrl.length;
+      if (this.lightBoxIndex > len - 1) {
+        this.lightBoxIndex = 0;
+      } else if (this.lightBoxIndex < 0) {
+        this.lightBoxIndex = len - 1;
+      }
     }
   },
   mounted() {
@@ -346,5 +379,47 @@ export default {
   margin-bottom: 15px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
   z-index: 1;
+}
+
+#lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 150;
+  .lightbox-view {
+    width: 70vh;
+    position: relative;
+    .lightbox-img {
+      width: 100%;
+      box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.3);
+      position: absolute;
+      opacity: 0;
+      transform: translateX(45px);
+      &.active {
+        opacity: 1;
+        transform: translateX(0px);
+        transition: all 0.7s ease-in-out;
+      }
+    }
+  }
+  .arrow {
+    color: #fff;
+    display: block;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 100;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
