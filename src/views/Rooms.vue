@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <div class="room-bg bg-1" :style="{'background-image' : `url(${loopIndex})`}"></div>
+      <div class="room-bg bg-1" :style="{'background-image' : `url(${loopRoom[loopIndex]})`}"></div>
       <div class="header-content">
         <img src="@/assets/images/logo_white.svg" alt="White Space Hotel" />
         <div class="flex-rcc contactSec">
@@ -48,7 +48,7 @@ export default {
         "https://images.unsplash.com/photo-1519974719765-e6559eac2575?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
         "https://images.unsplash.com/photo-1533759413974-9e15f3b745ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80"
       ],
-      loopIndex: ""
+      loopIndex: 0
     };
   },
   created() {
@@ -61,17 +61,12 @@ export default {
       })
       .then(response => {
         this.rooms = response.data.items;
-      })
-      .then(() => {
-        this.loopIndex = this.loopRoom[0];
       });
   },
   mounted() {
     setInterval(() => {
-      const len = this.loopRoom.length;
-      let index = Math.floor(Math.random() * len);
-      this.loopIndex = this.loopRoom[index];
-    }, 2800);
+      this.loopIndex >= (this.loopRoom.length -1) ? this.loopIndex = 0 : this.loopIndex++;
+    }, 3500);
   }
 };
 </script>
@@ -86,7 +81,7 @@ export default {
   left: 0;
   bottom: 0;
   right: 0;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.6s ease-in-out;
 }
 
 header {

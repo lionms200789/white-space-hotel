@@ -4,11 +4,11 @@
       <i class="fa fa-3x fa-chevron-left arrow" @click="indexControl(-1)"></i>
       <div class="lightbox-view flex-rcc">
         <img
-          :src="roomsImg[i]"
           v-for="(img,i) in roomsImg.length"
+          :src="roomsImg[i]"
           :key="i"
           class="lightbox-img"
-          :class="{'active': index === i}"
+          :class="{'active': newIndex === i}"
         />
       </div>
       <i class="fa fa-3x fa-chevron-right arrow" @click="indexControl(+1)"></i>
@@ -21,16 +21,16 @@ export default {
   props: ["roomsImg", "control"],
   data() {
     return {
-      index: 0
+      newIndex: 0
     };
   },
   methods: {
     indexControl(num) {
-      this.index += num;
-      if (this.index > this.roomsImg.length - 1) {
-        this.index = 0;
-      } else if (this.index < 0) {
-        this.index = this.roomsImg.length - 1;
+      this.newIndex += num;
+      if (this.newIndex > this.roomsImg.length - 1) {
+        this.newIndex = 0;
+      } else if (this.newIndex < 0) {
+        this.newIndex = this.roomsImg.length - 1;
       }
     },
     closeLightBox() {

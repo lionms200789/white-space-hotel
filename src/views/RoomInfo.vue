@@ -3,6 +3,7 @@
     <LightBox
       :rooms-img="roomDetail.imageUrl"
       :control="switchLightBox"
+      :index="index"
       @lightboxControl="lightBoxSwitch"
     />
     <div class="room-gallery" @click="switchLightBox = true">
@@ -108,6 +109,7 @@
       :popup="popup"
       :id="roomId"
       :detail="roomDetail"
+      :reserved="booking"
       @popUpHandler="popup = false"
       @updateRoom="getRoomInfo"
     />
@@ -134,6 +136,7 @@ export default {
       },
       booking: [],
       popup: false,
+      index:0,
       switchLightBox: false
     };
   },
@@ -335,15 +338,6 @@ export default {
     left: 4px;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(
-      45deg,
-      #575757 25%,
-      #ffffff 0,
-      #575757 50%,
-      #ffffff 0,
-      #575757 75%,
-      #ffffff 0
-    );
     background-size: 5px 5px;
   }
 }

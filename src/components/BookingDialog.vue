@@ -10,16 +10,11 @@
           </div>
           <div class="booking-tel">
             <label for="text">電話</label>
-            <input type="number" id="tel" v-model="bookinfo.tel" />
+            <input type="text" id="tel" v-model.number="bookinfo.tel" />
           </div>
           <div class="booking-date">
-            <label for="date" style="width:30px">預約起迄</label>
-            <vc-date-picker
-              mode="range"
-              v-model="range"
-              :min-date="new Date()"
-              style="flex:1 1 auto;"
-            >
+            <label for="date">預約起迄</label>
+            <vc-date-picker mode="range" v-model="range" :min-date="calMinDate" style="width:100%">
               <input
                 type="text"
                 id="date"
@@ -91,6 +86,11 @@ export default {
         return days !== 6 && days !== 0 && days !== 5;
       });
       return weekdays;
+    },
+    calMinDate() {
+      const date = new Date();
+      date.setDate(date.getDay() + 1);
+      return date;
     }
   },
   methods: {
@@ -184,16 +184,20 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      & > input,
-      .input-picker {
-        padding: 7px;
-        flex: 1 1 auto;
+      #name,
+      #tel,
+      #date {
+        flex: 1 0 auto;
         border: 1px solid #cbd5e0;
         border-radius: 4px;
         outline: 0;
+        padding: 2px;
+        font-size: 16px;
       }
       & > label {
-        flex: 1 1 auto;
+        flex: 1 0 auto;
+        padding-right: 5px;
+        font-size: 14px;
       }
     }
   }

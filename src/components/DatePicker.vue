@@ -1,11 +1,11 @@
 <template>
   <div class="date-picker">
     <div class="date-header flex-rsbc">
-      <a href="javscript:;" @click="adjustMonth(-1)">
+      <a href="#" @click.prevent="adjustMonth(-1)">
         <i class="fa fa-chevron-left"></i>
       </a>
       <h1>{{ calendar.year }} / {{ calendar.month + 1 }}月</h1>
-      <a href="javscript:;" @click="adjustMonth(1)">
+      <a href="javascript:;" @click.prevent="adjustMonth(1)">
         <i class="fa fa-chevron-right"></i>
       </a>
     </div>
@@ -24,7 +24,7 @@
           class="dates txt-c"
           v-for="d in 7"
           :key="d"
-          :class="[disableOtherMth(getCalendarMth(w,d)),checkReserved(getCalendarMth(w,d)),activeToday(getCalendarMth(w,d))]"
+          :class="[disableOtherMth(getCalendarMth(w,d)),checkReserved(getCalendarMth(w,d))]"
         >{{ showCalendarDates[ (w - 1) * 7 + (d - 1) ].date }}</div>
       </div>
     </div>
@@ -87,14 +87,6 @@ export default {
         booked: this.reserved.some(val => {
           return val.date === this.formatDate(time);
         })
-      };
-    },
-    activeToday(time) {
-      return {
-        active:
-          time.year === this.today.year &&
-          time.month === this.today.month &&
-          time.date === this.today.date
       };
     },
     formatDate(time) {
@@ -193,21 +185,12 @@ export default {
     }
   }
 }
-
 .disOtherMth {
   color: #c9ccd0;
 }
-
-.active {
-  border: 1px solid #000;
-  border-radius: 50%;
-}
-
 .booked {
-  border: 1px solid #575757;
-  border-radius: 3px;
+  border-radius: 50%;
   background-color: #575757;
-  background-size: 5px 5px;
   color: #ffffff;
 }
 </style>
