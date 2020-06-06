@@ -1,7 +1,7 @@
 <template>
   <transition name="modal">
     <div class="cover" v-if="popup" @click.self="closePopUp">
-      <form class="booking-dialog" v-if="popup">
+      <div class="booking-dialog" v-if="popup">
         <span class="booking-title">預約時段</span>
         <div class="booking-form">
           <div class="booking-name">
@@ -60,10 +60,10 @@
           class="total"
         >NT. {{ (detail.normalDayPrice * countWeekdays.length) + (detail.holidayPrice * countHolidays.length) }}</p>
         <div class="booking-confirm flex-rsbc">
-          <input type="button" class="cancel" value="取消" @click="closePopUp">
-          <input type="submit" class="confirm" value="確認預約"  @click="booking">
+          <input type="button" class="cancel" value="取消" @click="closePopUp" />
+          <input type="submit" class="confirm" value="確認預約" @click="booking" />
         </div>
-      </form>
+      </div>
       <BookingResult :status="status" />
     </div>
   </transition>
@@ -117,8 +117,7 @@ export default {
       this.$emit("popUpHandler");
     },
     booking() {
-      const form = this.$el.querySelector(".booking-dialog");
-      if (form.checkValidity()) {
+      if (this.bookinfo.name && this.bookinfo.tel && this.bookinfo.date) {
         this.$bus.$emit("popUpResultModal");
         this.$http
           .post(
@@ -144,6 +143,8 @@ export default {
           .catch(err => {
             this.status = "預約失敗";
           });
+      } else {
+        alert("請確認欄位皆填妥");
       }
     },
     convertMth(num) {
@@ -169,107 +170,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.cover {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(30, 30, 30, 0.35);
-  opacity: 1;
-  z-index: 15;
-}
-.booking-dialog {
-  width: 100%;
-  max-width: 370px;
-  height: 470px;
-  background: #fff;
-  opacity: 1;
-  position: absolute;
-  z-index: 20;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  .booking-title {
-    font-size: 24px;
-    display: block;
-    padding: 2.5rem 2.5rem 0;
-  }
-  .booking-form {
-    padding: 2.5rem 2.5rem 0;
-    .booking-name,
-    .booking-tel,
-    .booking-date {
-      margin-bottom: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      #name,
-      #tel,
-      #date {
-        flex: 1 0 auto;
-        border: 1px solid #cbd5e0;
-        border-radius: 4px;
-        outline: 0;
-        padding: 5px;
-        font-size: 16px;
-      }
-      #date {
-        width: 100%;
-      }
-      & > label {
-        flex: 1 0 auto;
-        padding-right: 5px;
-      }
-    }
-  }
-  .count-day {
-    padding: 1rem 2.5rem;
-    background-color: #ededed;
-    .normal-day {
-      padding-bottom: 10px;
-    }
-    .normal-day,
-    .holiday {
-      color: #6d7278;
-      font-size: 13px;
-    }
-  }
-  .total {
-    text-align: right;
-    padding: 1.5rem 2.5rem 0;
-    font-size: 24px;
-    color: #ff5c5c;
-  }
-  .booking-confirm {
-    padding: 1.5rem 2.5rem 0;
-    .cancel,
-    .confirm {
-      padding: 10px 15px;
-      border: none;
-      -webkit-appearance: none;
-      border-radius:0;
-      cursor:pointer;
-      outline: 0;
-    }
-    .cancel {
-      background-color: #d8d8d8;
-      color: #484848;
-    }
-    .confirm {
-      background-color: #484848;
-      color: #fff;
-    }
-  }
-}
-.modal-enter-active,
-.modal-leave-active {
-  transition: opacity 0.25s;
-}
-.modal-enter,
-.modal-leave-to {
-  opacity: 0;
-}
-</style>

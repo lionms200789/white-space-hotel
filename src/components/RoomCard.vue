@@ -4,11 +4,11 @@
       <li class="card-item" v-for="room in rooms" :key="room.id">
         <a href="javascript:;" class="card-link" @click.prevent="checkRoomDetail(room.id)">
           <img :src="room.imageUrl" class="room-img" />
-          <div class="room-info flex-ccl">
+          <div class="room-description flex-ccl">
             <div class="room-name">
               <p>{{ room.name }}</p>
             </div>
-            <div class="room-price flex-rsbc">
+            <div class="room-cost flex-rsbc">
               <p>
                 NT.{{ room.normalDayPrice }}
                 <span>平日</span>
@@ -55,7 +55,7 @@ export default {
       height: 100%;
       position: relative;
       text-decoration: none;
-      &:hover > .room-info {
+      &:hover > .room-description {
         transform: translateY(0);
       }
       .room-img {
@@ -63,7 +63,7 @@ export default {
         height: 100%;
       }
     }
-    .room-info {
+    .room-description {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -83,7 +83,7 @@ export default {
       .room-name {
         padding-bottom: 1.5rem;
       }
-      .room-price {
+      .room-cost {
         width: 100%;
         p {
           font-size: 18px;

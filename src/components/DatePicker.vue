@@ -36,12 +36,6 @@ export default {
   props: ["reserved"],
   data() {
     return {
-      today: {
-        year: "",
-        month: "",
-        date: "",
-        day: ""
-      },
       calendar: {
         year: "",
         month: "",
@@ -53,12 +47,7 @@ export default {
   methods: {
     getCurrentDate() {
       let date = new Date();
-
-      this.today.year = date.getFullYear();
-      this.today.month = date.getMonth();
-      this.today.date = date.getDate();
-      this.today.day = date.getDay();
-
+      
       this.calendar.year = date.getFullYear();
       this.calendar.month = date.getMonth();
       this.calendar.date = date.getDate();
