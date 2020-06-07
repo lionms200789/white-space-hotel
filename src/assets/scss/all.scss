@@ -1,4 +1,7 @@
 @import "reset";
-@import "customTool";
+@import "./utils/variables";
+@import "./utils/customTool";
 @import "./components/BookingDialog";
-@import "./components/RoomInfo"
+@import "./components/DatePicker";
+@import "./components/RoomInfo";
+@import "./components/RoomCard"

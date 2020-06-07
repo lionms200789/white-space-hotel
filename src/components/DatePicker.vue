@@ -4,7 +4,7 @@
       <a href="#" @click.prevent="adjustMonth(-1)">
         <i class="fa fa-chevron-left"></i>
       </a>
-      <h1>{{ calendar.year }} / {{ calendar.month + 1 }}月</h1>
+      <div class="date-title">{{ calendar.year }} / {{ calendar.month + 1 }}月</div>
       <a href="#" @click.prevent="adjustMonth(1)">
         <i class="fa fa-chevron-right"></i>
       </a>
@@ -122,64 +122,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.date-picker {
-  padding: 20px;
-  background-color: #f7f7f7;
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.15);
-  margin-bottom: 30px;
-  .date-header {
-    text-align: center;
-    margin-bottom: 20px;
-    h1 {
-      font-weight: 500;
-      font-size: 18px;
-      letter-spacing: 1.8px;
-      flex: 1 1 auto;
-    }
-    a {
-      color: #575757;
-      padding: 5px 10px;
-      display: block;
-      flex: 1 1 0;
-      transition: all 0.3s ease-in-out;
-      &:hover {
-        transform: scale(1.5);
-      }
-    }
-  }
-  .date-body {
-    padding: 0 10px;
-    .weekday {
-      color: #6d7278;
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 30px;
-      & > div {
-        flex: 1 1 0;
-      }
-    }
-    .week {
-      margin-bottom: 10px;
-      &:last-child {
-        margin-bottom: 0;
-      }
-      .dates {
-        flex: 1 1 0;
-        padding: 10px;
-        font-weight: 600;
-        margin-right: 1px;
-      }
-    }
-  }
-}
-.disOtherMth {
-  color: #c9ccd0;
-}
-.booked {
-  border-radius: 50%;
-  background-color: #575757;
-  color: #ffffff;
-}
-</style>
