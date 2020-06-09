@@ -1,19 +1,9 @@
-# whitespace_hotel
+# 第二屆F2E-旅館預約訂房
 
-## Project setup
-```
-npm install
-```
+> 此小專案為六角學院主辦的第二屆 The F2E 精神時光屋練功活動第六關參賽作品。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### 說明
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+* 使用 SCSS 手刻撰寫與模組化管理樣式
+* 共有四支API，皆串接完成，分別為「取得所有房型」、「單一房型細節」、「預約房型」、「清除所有預約」。
+* [DEMO連結](https://lionms200789.github.io/white-space-hotel/#/)
